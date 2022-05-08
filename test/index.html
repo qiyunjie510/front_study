@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery学习</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        url = "http://backend.zhazha.com";
+        let timestamp = 0 ;
+        $(
+            function () {
+
+                updateMsg();
+                // 添加按钮提交事件
+                $("#chatForm").submit(
+                    function () {
+                        $.ajax({
+                            type: "POST",
+                            data: {
+                                "message": $("#msg").val(),
+                                "name": $("#author").val(),
+                                "action": "post msg",
+                                "time": timestamp,
+                            },
+                            url: "http://backend.zhazha.com/api/chatRoom/addMsg",
+                            xhrFields: {withCredentials: true},
+                            success: function () {
+                                addMessages([
+                                    {
+                                        "user": $("#author").val(),
+                                        "msg" : $("#msg").val(),
+                                        "time": timestamp,
+                                    }
+                                ], timestamp)
+                            },
+                            error: function () {
+                                console.log('Request Error.');
+                            }
+                        });
+
+                        return false;
+                    }
+                );
+            }
+        );
+
+        // 更新聊天框聊天消息
+        function updateMsg() {
+            $.ajax({
+                type: "GET",
+                data: {
+                    "time": timestamp,
+                },
+                url: "http://backend.zhazha.com/api/chatRoom/listMsg",
+                xhrFields: {withCredentials: true},
+                success: function (data) {
+                    $("#loading").remove();
+                    addMessages(data.data.list, data.data.time)
+
+                },
+                error: function () {
+                    console.log('Request Error.');
+                }
+            });
+            setTimeout('updateMsg()', 3000);
+        }
+
+        function addMessages(list,time){
+            if(list.length == 0){
+                return;
+            }
+            timestamp = time;
+            for(let i=0; i<list.length;i++){
+                let htmlcode = "<strong>" + list[i].user + "</strong>: ("+ time + ")" + list[i].msg + "<br/>";
+                $("#messageWindow").prepend(htmlcode);
+            }
+        }
+    </script>
+    <style>
+        #messageWindow {
+            width: 300px;
+            height: 300px;
+            border: 2px red;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <p id="messageWindow"><span id="loading">加载中...</span></p>
+    <form id="chatForm">
+        姓名：<input type="text" id="author" size="50"><br>
+        内容：<input type="text" id="msg" size="50"><br>
+        <input type="submit" value="发送"><br>
+    </form>
+</div>
+</body>
+
+</html>

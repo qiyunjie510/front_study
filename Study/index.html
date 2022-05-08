@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        #canvas{
+            border: 1px solid #ccc;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <script>
+        let canvas = document.querySelector('#canvas');
+
+        let ctx    = canvas.getContext('2d');
+
+        //
+        const map  = [
+            [0,0,0,0,0,0],
+            [0,0,0,0,0,0],
+            [0,0,0,1,0,0],
+            [0,0,0,0,0,0]
+        ];
+
+        let size = 100;
+        let m = ctx.canvas.width /size ;
+        let n = ctx.canvas.height / size;
+        for(let i=0;i< m; i++){
+            for (let j=0;j<n;j++){
+                paint(i,j,"green");
+            }
+        }
+
+        function paint(i,j){
+            // 
+            let image = new Image();
+            switch (map[j][i]) {
+                case 0:
+                    image.src = "asset/pic1.png";
+                    break;
+                case 1:
+                default:
+                    image.src = "asset/pic2.png";
+                    break;
+            }
+            image.addEventListener('load', ()=>{
+                ctx.drawImage(image, i*size,j*size,size,size);
+            });
+
+        }
+        function getLocation(x, y) {
+            let bbox = canvas.getBoundingClientRect();
+            return {
+                x: (x - bbox.left) * (canvas.width / bbox.width),
+                y: (y - bbox.top) * (canvas.height / bbox.height)
+
+                /*
+                 * 此处不用下面两行是为了防止使用CSS和JS改变了canvas的高宽之后是表面积拉大而实际
+                 * 显示像素不变而造成的坐标获取不准的情况
+                x: (x - bbox.left),
+                y: (y - bbox.top)
+                */
+            };
+        }
+
+        canvas.onmousedown = function (e) {
+            let location = getLocation(e.clientX, e.clientY);
+            let message = document.getElementById("message");
+            message.innerHTML = "x=" + location.x + " ,y=" + location.y;
+            let x = Math.floor(location.x / size);
+            let y = Math.floor(location.y / size);
+            console.log(x,y);
+            paint(x,y)
+        };
+
+    </script>
+    <p id="message"></p>
+</body>
+
+</html>

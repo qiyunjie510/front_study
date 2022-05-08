@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery学习</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(
+            function (){
+                // $("#one").css("background", "#bbffaa");
+                // $(".mini").css("background","#bbffaa");
+                // $("div").css("background","#bbffaa");
+                // $("*").css("background","#bbffaa");
+                // $("span,#two").css("background", "#bbffaa");
+                // $("body div").css("background", "#bbffaa");
+                // $("body > div").css("background", "#bbffaa");
+                // $(".one + div").css("background", "#bbffaa");
+                // $("#two ~ div").css("background", "#bbffaa");
+                // $("div:first").css("background", "#bbffaa");
+                // $("div:last").css("background", "#bbffaa");
+                // $("div:not(.one)").css("background", "#bbffaa");
+                // $("div:even").css("background", "#bbffaa");
+                // $("div:eq(3)").css("background", "#bbffaa");
+                // $(":animated").css("background", "#bbffaa");
+                $(":focus").css("background", "#bbffaa"); // 无效
+                // $("div:empty").css("background", "#bbffaa");
+                // $("div:has('.mini')").css("background", "#bbffaa");
+                // $("div:parent").css("background", "#bbffaa");
+                // $("div:hidden").show(3000);
+                $("div[title]").css("background", "#bbffaa");
+
+            }
+        );
+    </script>
+    <style>
+        div,span,p{
+            width: 140px;
+            height: 140px;
+            margin: 5px;
+            background: #aaa;
+            border: #000 1px solid;
+            float: left;
+            font-size: 17px;
+            font-family: Verdana;
+        }
+
+        div.mini{
+            width: 55px;
+            height: 55px;
+            background-color: #aaa;
+            font-size: 12px;
+        }
+        div.hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="one" id="one">
+        id为one,class为one的div
+        <div class="mini">class 为mini</div>
+    </div>
+
+    <div class="one" id="two" title="test">
+        id two class one,title test
+        <div class="mini" title="other">class = mini,title=other</div>
+        <div class="mini" title="test"> class = mini,title=test</div>
+    </div>
+
+    <div class="one">
+        <div class="mini">class为mini</div>
+        <div class="mini">class为mini</div>
+        <div class="mini">class为mini</div>
+        <div class="mini"></div>
+    </div>
+    <div class="one">
+        <div class="mini"> class 为 mini</div>
+        <div class="mini"> class 为 mini</div>
+        <div class="mini"> class 为 mini</div>
+        <div class="mini" title="tesst"> class 为 mini,title为tesst</div>
+    </div>
+
+    <div style="display: none"  class="none">
+        style display 为 none 的 div
+    </div>
+
+    <div class="hide">
+        class 为 hide的div
+    </div>
+
+    <div>
+        包含input的type 为 hidden的div
+        <input type="hidden" size="8">
+        <input type="button" value="按钮">
+    </div>
+    <span id="mover">正在执行动画的span元素.</span>
+
+    <div class="SubCategoryBox">
+        <ul>
+            <li><a href="#">佳能</a><i>(30440)</i></li>
+            <li><a href="#">索尼</a><i>(2)</i></li>
+            <li><a href="#">三星</a><i>(2)</i></li>
+            <li><a href="#">尼康</a><i>(3)</i></li>
+            <li><a href="#">松下</a><i>(4)</i></li>
+            <li><a href="#">卡西欧</a><i>(30440)</i></li>
+            <li><a href="#">富士</a><i>(30440)</i></li>
+            <li><a href="#">柯达</a><i>(30440)</i></li>
+            <li><a href="#">宾得</a><i>(30440)</i></li>
+            <li><a href="#">理光</a><i>(30440)</i></li>
+            <li><a href="#">奥林巴斯</a><i>(30440)</i></li>
+            <li><a href="#">明基</a><i>(30440)</i></li>
+            <li><a href="#">爱国者</a><i>(30440)</i></li>
+            <li><a href="#">其他品牌相机</a><i>(30440)</i></li>
+        </ul>
+    </div>
+</body>
+
+</html>

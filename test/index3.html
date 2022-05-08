@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery学习</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(
+            function (){
+                let $category = $("ul li:gt(5):not(:last)");
+                $category.hide();
+
+                let $toggleBtn = $("div.showmore > a");
+
+                $toggleBtn.click(
+                    function(){
+                        if($category.is(":visible")){
+                            $category.hide();
+                            $(this).find("span")
+                                .css("background", "url(img/up.gif) no-repeat 0 0")
+                                .text("显示全部品牌");
+                            $("ul li").filter(":contains('佳能'),:contains('尼康')")
+                                .removeClass("promoted");
+                            return false;
+                        }else{
+                            $category.show();
+                            $(this).find("span")
+                                .css("background", "url(img/up.gif) no-repeat 0 0")
+                                .text("精简显示品牌");
+                            $("ul li").filter(":contains('佳能'),:contains('尼康')")
+                                .addClass("promoted");
+                            return false;
+                        }
+                    }
+                )
+            }
+
+        );
+
+    </script>
+    <style>
+        .promoted{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="SubCategoryBox">
+        <ul>
+            <li><a href="#">佳能</a><i>(30440)</i></li>
+            <li><a href="#">索尼</a><i>(2)</i></li>
+            <li><a href="#">三星</a><i>(2)</i></li>
+            <li><a href="#">尼康</a><i>(3)</i></li>
+            <li><a href="#">松下</a><i>(4)</i></li>
+            <li><a href="#">卡西欧</a><i>(30440)</i></li>
+            <li><a href="#">富士</a><i>(30440)</i></li>
+            <li><a href="#">柯达</a><i>(30440)</i></li>
+            <li><a href="#">宾得</a><i>(30440)</i></li>
+            <li><a href="#">理光</a><i>(30440)</i></li>
+            <li><a href="#">奥林巴斯</a><i>(30440)</i></li>
+            <li><a href="#">明基</a><i>(30440)</i></li>
+            <li><a href="#">爱国者</a><i>(30440)</i></li>
+            <li><a href="#">其他品牌相机</a><i>(30440)</i></li>
+        </ul>
+    </div>
+    <div class="showmore">
+        <a href="more.html"><span>显示全部品牌</span></a>
+    </div>
+</body>
+
+</html>
